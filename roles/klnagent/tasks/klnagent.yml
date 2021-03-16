@@ -1,0 +1,81 @@
+- block:
+    - name: "Getting klnagent autonomous install package to temporary folder"
+      get_url:
+        url: "{{ local_distr_repo_url }}/{{ klnagent_autonomous_package_name }}"
+        dest: "/tmp/{{ klnagent_autonomous_package_name }}"
+        url_username: "{{ local_distr_repo_user }}"
+        url_password: "{{ local_distr_repo_pass }}"
+        mode: 0755
+      tags: klnagent
+
+    - name: "Running klnagent autonomous install"
+      become: yes
+      shell: "/tmp/{{ klnagent_autonomous_package_name }}"
+      args:
+        executable: /bin/bash 
+      tags: klnagent
+
+    - name: "Ensure klnagent service is enabled"
+      become: yes
+      service:
+        name: klnagent64
+        enabled: yes
+        state: started
+      tags: klnagent
+
+    - name: "Removing package file"
+      file: 
+        path: "/tmp/{{ klnagent_autonomous_package_name }}" 
+        state: absent
+  when: metod_klnagent == "autonomous_package"
+
+- block:
+    - name: "Creating answer file for klnagent"
+      become: yes
+      template:
+        src: klnagent.j2
+        dest: /tmp/klnagent.ini
+        mode: 0644
+      tags: klnagent
+
+    - name: "Downloading rpm package"
+      become: yes
+      get_url:
+        url: "{{ klnagent_url }}"
+        dest: /tmp/{{ klnagent_url.split("/")[-1] }}
+      tags: klnagent
+
+    - name: "Installing package"
+      become: yes
+      yum:
+        name: /tmp/{{ klnagent_url.split("/")[-1] }}
+        state: present
+      tags: klnagent
+
+    - name: "Run configuring klnagent"
+      become: yes
+      shell: "{{ default_klnagent_bin_path }}/setup/postinstall.pl"
+      args:
+        executable: /bin/bash 
+      environment: 
+        KLAUTOANSWERS: /tmp/klnagent.ini
+      notify: restart klnagent
+      tags: klnagent
+
+    - name: "Ensure klnagent service is enabled"
+      become: yes
+      service:
+        name: klnagent64
+        enabled: yes
+        state: started
+      tags: klnagent
+
+    - name: "Removing temporary files"
+      file: 
+        path: "{{ item }}" 
+        state: absent
+      with_items:
+        - "/tmp/{{ klnagent_url.split(\"/\")[-1] }}"
+        - "/tmp/klnagent.ini"
+  when: metod_klnagent == "custom_install"
+

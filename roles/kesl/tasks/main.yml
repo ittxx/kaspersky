@@ -1,0 +1,4 @@
+- import_tasks: kesl.yml
+  vars:
+    metod_kesl: "custom_install"
+  tags: kesl

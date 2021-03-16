@@ -1,0 +1,25 @@
+#klnagent block
+metod_klnagent_param: "custom_install" # autonomous_package или custom_install
+
+# -----используется в случае metod_klnagent_param: "autonomous_package"--------
+klnagent_autonomous_package_name: "klnagent64-11.0.0-38.x86_64.sh" 
+
+# -----используется в случае metod_klnagent_param: "custom_install"------------
+klnagent_url: "https://products.s.kaspersky-labs.com/endpoints/keslinux10/11.1.0.3013/multilanguage-INT-11.1.0.3013/3330333430347c44454c7c31/klnagent64-11.0.0-38.x86_64.rpm"
+KLNAGENT_SERVER: "ksctest"
+KLNAGENT_PORT: "14000"
+KLNAGENT_SSLPORT: "13000"
+KLNAGENT_USESSL: "1"
+KLNAGENT_GW_MODE: "3"
+KLNAGENT_GW_ADDRESS: "kasp.youdomain.ru"
+# -----------------------------------------------------------------------------------------------
+
+#kesl block
+kesl_file_name: "kesl-11.1.0-3013.x86_64.rpm"
+EULA_AGREED: "yes"
+PRIVACY_POLICY_AGREED: "yes"
+SERVICE_LOCALE: "en_US.UTF-8"
+USE_KSN: "yes"
+USE_GUI: "no"
+INSTALL_LICENSE: ""
+ScanMemoryLimit: "2048"

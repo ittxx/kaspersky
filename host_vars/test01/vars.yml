@@ -1,0 +1,7 @@
+ansible_ssh_host: 10.10.10.30
+ansible_ssh_port: 22
+
+
+#Vault secret:123456
+# ansible_ssh_user: "root"
+# ansible_ssh_pass: "password"

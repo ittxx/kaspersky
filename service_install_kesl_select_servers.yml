@@ -1,0 +1,5 @@
+- name: "Installing Kaspersky Endpoint Security"
+  hosts: "{{ host }}"
+  gather_facts: yes
+  roles:
+    - kesl

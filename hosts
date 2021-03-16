@@ -1,0 +1,5 @@
+all:
+  children:
+    kaspersky:
+      hosts:
+        test01:

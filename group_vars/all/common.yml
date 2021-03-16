@@ -1,0 +1,6 @@
+
+local_distr_repo_url: "http://10.10.10.10:8099"
+
+#Vault secret:123456
+# local_distr_repo_user: "username"
+# local_distr_repo_pass: "password"

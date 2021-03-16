@@ -1,0 +1,4 @@
+- import_tasks: klnagent.yml
+  vars:
+    metod_klnagent: "{{ metod_klnagent_param }}"
+  tags: klnagent

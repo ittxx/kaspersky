@@ -1,0 +1,15 @@
+default_klnagent_bin_path: "/opt/kaspersky/klnagent64/lib/bin"
+
+# -----используется в случае tasks.yml-> main.yml -> metod_klnagent: "autonomous_package"--------
+# klnagent_autonomous_package_name: "klnagent64-11.0.0-38.x86_64.sh" 
+# -----------------------------------------------------------------------------------------------
+
+# -----используется в случае tasks.yml-> main.yml -> metod_klnagent: "custom_install"------------
+# klnagent_url: "https://products.s.kaspersky-labs.com/endpoints/keslinux10/11.1.0.3013/multilanguage-INT-11.1.0.3013/3330333430347c44454c7c31/klnagent64-11.0.0-38.x86_64.rpm"
+# KLNAGENT_SERVER: "ksctest"
+# KLNAGENT_PORT: "14000"
+# KLNAGENT_SSLPORT: "13000"
+# KLNAGENT_USESSL: "1"
+# KLNAGENT_GW_MODE: "3"
+# KLNAGENT_GW_ADDRESS: "kasp.youdomain.ru"
+# -----------------------------------------------------------------------------------------------

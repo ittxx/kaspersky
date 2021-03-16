@@ -1,0 +1,9 @@
+- name: reload klnagent  # перезагрузка агента администрирования
+  service:
+    name: "klnagent64"
+    state: reloaded
+
+- name: restart klnagent # перезапуск агента администрирования
+  service:
+    name: "klnagent64"
+    state: restarted

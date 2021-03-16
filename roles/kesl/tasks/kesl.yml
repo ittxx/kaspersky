@@ -1,0 +1,51 @@
+- block:
+  - name: "Getting kesl package to temporary folder"
+    get_url:
+      url: "{{ local_distr_repo_url }}/{{ kesl_file_name }}"
+      dest: /tmp/{{ kesl_file_name }}
+      url_username: "{{ local_distr_repo_user }}"
+      url_password: "{{ local_distr_repo_pass }}"
+      mode: 0755
+    tags: kesl
+
+  - name: "Creating answer file for kesl"
+    become: yes
+    template:
+      src: "kesl.j2"
+      dest: "/tmp/kesl.ini"
+      mode: 0644
+    tags: kesl
+
+  - name: "Installing package"
+    become: yes
+    yum:
+      name: "/tmp/{{ kesl_file_name }}"
+      state: present
+    tags: kesl
+
+  - name: "Kesl postinstall config"
+    shell: "{{ default_kesl_bin_path }}/kesl-setup.pl --autoinstall=/tmp/kesl.ini"
+    register: postconfig_result
+    notify:  restart kesl
+
+  - name: "Ensure kesl service is enabled"
+    become: yes
+    service:
+      name: kesl
+      enabled: yes
+      state: started
+    tags: kesl
+
+  - name: "Kesl check status"
+    shell: "{{ default_kesl_bin_path }}/kesl-control -S --app-info"
+    register: Kesl_status
+    notify:  restart kesl
+
+  - name: "Removing temporary files"
+    file: 
+      path: "{{ item }}" 
+      state: absent
+    with_items:
+      - "/tmp/{{ kesl_file_name }}"
+      - "/tmp/kesl.ini"
+  when: metod_kesl == "custom_install"
