@@ -54,6 +54,6 @@
     USE_GUI: "no"
     INSTALL_LICENSE: ""
     ScanMemoryLimit: "2048"
-Более подробную инстукцию можно найти по адресу https://ittx.ru/note/2021/03/15/ansible-kesl/
+Более подробную инстукцию можно найти по адресу https://ittx.ru/note/2021/03/18/ansible-kesl/
 
 https://ittx.ru
